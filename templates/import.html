@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card mt-5">
+            <div class="card-body p-5">
+                <h2 class="text-center mb-4">Bulk Import Students</h2>
+                <p class="text-muted text-center">Upload an Excel (.xlsx) or CSV file with columns:
+                    <strong>Name</strong>, <strong>ID</strong></p>
+
+                <form method="POST" enctype="multipart/form-data">
+                    <div class="mb-4">
+                        <label for="file" class="form-label">Select File</label>
+                        <input type="file" class="form-control" id="file" name="file" accept=".csv, .xlsx" required>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary btn-lg">Import Students</button>
+                    </div>
+                </form>
+
+                <div class="mt-3 text-center">
+                    <a href="{{ url_for('register') }}">Back to Single Registration</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

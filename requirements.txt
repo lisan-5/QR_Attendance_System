@@ -1,0 +1,12 @@
+Flask
+Flask-SQLAlchemy
+Flask-Login
+Flask-Mail
+qrcode[pil]
+opencv-python
+pyzbar
+pandas
+openpyxl
+fpdf
+pytest
+click

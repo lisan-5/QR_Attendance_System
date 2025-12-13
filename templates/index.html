@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row mb-4">
+    {% extends "base.html" %}
+
+    {% block content %}
+    <div class="row mb-4">
+        <div class="col-md-12 text-center text-white mb-4">
+            <h1>Dashboard</h1>
+            <p class="lead">Real-time Attendance Overview</p>
+        </div>
+    </div>
+
+    <div class="row mb-5">
+        <div class="col-md-4 mb-3">
+            <div class="card stat-card">
+                <div class="card-body">
+                    <h5 class="card-title text-muted">Total Students</h5>
+                    <p class="stat-number">{{ total_students }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card stat-card">
+                <div class="card-body">
+                    <h5 class="card-title text-muted">Attendance Today</h5>
+                    <p class="stat-number">{{ total_attendance_today }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card h-100">
+                <div class="card-body">
+                    <canvas id="attendanceChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header bg-white border-0 pt-4 px-4">
+                    <h4>Recent Activity</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Student ID</th>
+                                    <th>Name</th>
+                                    <th>Course</th>
+                                    <th>Time</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for record in recent_attendance %}
+                                <tr>
+                                    <td>{{ record.student_id }}</td>
+                                    <td>{{ record.student.name }}</td>
+                                    <td>{{ record.course.code if record.course else 'N/A' }}</td>
+                                    <td>{{ record.timestamp.strftime('%H:%M:%S') }}</td>
+                                </tr>
+                                {% else %}
+                                <tr>
+                                    <td colspan="4" class="text-center">No attendance records yet.</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const ctx = document.getElementById('attendanceChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: {{ chart_dates | tojson }},
+            datasets: [{
+                label: 'Attendance (Last 7 Days)',
+                data: {{ chart_counts | tojson }},
+            borderColor: '#4e54c8',
+            tension: 0.4,
+            fill: true,
+            backgroundColor: 'rgba(78, 84, 200, 0.1)'
+            }]
+        },
+            options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 1
+                    }
+                }
+            }
+        }
+    });
+    </script>
+    {% endblock %}

@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-12 text-center text-white">
+        <h1>Advanced Analytics</h1>
+        <p class="lead">Student Performance & Risk Analysis</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header bg-white">
+                <h4>Student Attendance Report</h4>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Student ID</th>
+                                <th>Name</th>
+                                <th>Classes Attended</th>
+                                <th>Attendance %</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for s in students %}
+                            <tr>
+                                <td>{{ s.id }}</td>
+                                <td>{{ s.name }}</td>
+                                <td>{{ s.attended }}</td>
+                                <td>
+                                    <div class="progress" style="height: 20px;">
+                                        <div class="progress-bar {% if s.percentage < 75 %}bg-danger{% else %}bg-success{% endif %}"
+                                            role="progressbar" style="width: {{ s.percentage }}%;"
+                                            aria-valuenow="{{ s.percentage }}" aria-valuemin="0" aria-valuemax="100">
+                                            {{ s.percentage }}%
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    {% if s.status == 'At Risk' %}
+                                    <span class="badge bg-danger">At Risk</span>
+                                    {% else %}
+                                    <span class="badge bg-success">Good</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <a href="{{ url_for('download_id', student_id=s.id) }}"
+                                        class="btn btn-sm btn-outline-primary">
+                                        <i class="fas fa-id-card"></i> ID Card
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

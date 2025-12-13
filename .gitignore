@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.env
+.venv
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Database
+*.db
+*.sqlite3
+instance/
+
+# IDEs
+.vscode/
+.idea/
+
+# Project specific
+static/qrcodes/*
+!static/qrcodes/.gitkeep
+attendance_report.xlsx
