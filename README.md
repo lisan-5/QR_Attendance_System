@@ -22,8 +22,8 @@ A modern, web-based attendance system using QR codes, built with Flask, OpenCV, 
 
 1.  **Clone the repository**
     ```bash
-    git clone https://github.com/yourusername/smart-attendance-system.git
-    cd smart-attendance-system
+    git clone https://github.com/lisan-5/sqr_attendance_system.git
+    cd qr_attendance_system
     ```
 
 2.  **Create a virtual environment**
