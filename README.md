@@ -1,6 +1,6 @@
 # Smart Attendance System 📱
 
-A modern, web-based attendance system using QR codes, built with Flask, OpenCV, and SQLite.
+A modern, web-based attendance system using QR codes, built with Flask and OpenCV.
 
 ## Features 🚀
 
